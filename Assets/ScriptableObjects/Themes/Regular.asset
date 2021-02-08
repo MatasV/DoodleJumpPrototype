@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa5afa826b40d8439469a8ecebdd824, type: 3}
+  m_Name: Regular
+  m_EditorClassIdentifier: 
+  doodleSnout: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d, type: 3}
+  regularPlatform: {fileID: 1834559386802486852, guid: 912e9a0dc65f4e34c893c2a447cbae9e,
+    type: 3}
+  movingPlatform: {fileID: 2972604453649480616, guid: 912e9a0dc65f4e34c893c2a447cbae9e,
+    type: 3}
+  breakingPlatformSprite:
+  - {fileID: 5862005812850188299, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
+  - {fileID: -2505174782047878525, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
+  - {fileID: 709567329023910113, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
+  - {fileID: -8384149720036640882, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
+  - {fileID: -6655732713954868112, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
+  deathSprites:
+  - {fileID: 21300000, guid: 0904f70d29cdc054f8c1d7b58ef12bee, type: 3}
+  - {fileID: 21300000, guid: 9e5be8f3cb7875e43a21b494e1ab8595, type: 3}
+  - {fileID: 21300000, guid: 68d6146e28915df4f893eaafcafffe4b, type: 3}
+  doodle: {fileID: 2815257009328786312, guid: bc6aadfe530b1764483d447bd7b3414e, type: 3}
+  doodleLegsKneeling: {fileID: 0}
+  doodleLegsJumping: {fileID: -8258433529185267465, guid: bc6aadfe530b1764483d447bd7b3414e,
+    type: 3}
+  springBootsSpriteAnimation:
+  - {fileID: -1387000767905147672, guid: 4f74044cbbaa7464b974e679d87d4089, type: 3}
+  - {fileID: 892938449066998750, guid: 4f74044cbbaa7464b974e679d87d4089, type: 3}
+  - {fileID: 6229278615238284178, guid: 4f74044cbbaa7464b974e679d87d4089, type: 3}
+  - {fileID: -1480873486525438974, guid: 4f74044cbbaa7464b974e679d87d4089, type: 3}
+  - {fileID: -3876830128161194958, guid: 4f74044cbbaa7464b974e679d87d4089, type: 3}
+  legsGameObject: {fileID: 325726855784548067, guid: 86cc9fc8ea07d6842b3c9e7d12dba2f5,
+    type: 3}
+  propellerAnimation:
+  - {fileID: 2399305865463835652, guid: 61cf2cb12459fc2469bc80b78f86557e, type: 3}
+  - {fileID: -9089044965278458494, guid: 61cf2cb12459fc2469bc80b78f86557e, type: 3}
+  - {fileID: 5980292871318566222, guid: 61cf2cb12459fc2469bc80b78f86557e, type: 3}
+  - {fileID: 4366498333633035108, guid: 61cf2cb12459fc2469bc80b78f86557e, type: 3}
+  jetpackAnimation:
+  - {fileID: -290046961092865773, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 571319028482762898, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: -3021024557733256059, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 2608207307793039947, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: -8440494954582599368, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: -739779385537081851, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 4460626771822741837, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 2414272981080057401, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 5091504178736522748, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
+  - {fileID: 2717238286587502978, guid: 010902fbd4f9993478d8bf5a0564889e, type: 3}
