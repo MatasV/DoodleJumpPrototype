@@ -11,11 +11,11 @@ public class SpringBoots : NormalLegs
     [SerializeField] public ThemeDatabase themeDatabase;
     public float powerUpTime;
     private bool animDone;
-    protected override void Jump()
+    protected override void Jump(float jumpMult)
     {
         animDone = false;
         player.rb.velocity = Vector2.zero;
-        player.rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        player.rb.AddForce(Vector2.up * jumpHeight * jumpMult, ForceMode2D.Impulse);
         StartCoroutine(nameof(Kneel));
     }
 

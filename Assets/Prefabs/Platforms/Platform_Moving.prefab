@@ -133,3 +133,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   themeDatabase: {fileID: 11400000, guid: c216b6da2e97973439e71540efca09be, type: 2}
+  spawnPercentage: 10
+  leftSide: {x: 0, y: 0, z: 0}
+  rightSide: {x: 0, y: 0, z: 0}

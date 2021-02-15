@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public Collider2D mainCollider;
     private Camera mainCam;
 
+    public SharedVector3 playerPosition;
+
     [Header("Renderers")]
     public SpriteRenderer mainPlayerRenderer;
     [Header("Powerup Slots")]
@@ -25,14 +27,19 @@ public class PlayerController : MonoBehaviour
     public enum Side {Left, Right};
     public Side currentSide;
     
-    public delegate void OnJump();
+    public delegate void OnJump(float jumpMult);
     public OnJump onJump;
 
     public delegate void OnSideChanged(Side currentSide);
     public OnSideChanged onSideChanged;
 
     public GameObject legsGameObject;
-    
+
+    private void Awake()
+    {
+        playerPosition.Value = transform.position;
+    }
+
     private void Start()
     {
         mainCam = Camera.main;
@@ -53,6 +60,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Update()
     {
+        playerPosition.Value = transform.position;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
             rb.position += Vector2.left * sideWaysSpeed;
@@ -131,47 +139,11 @@ public class PlayerController : MonoBehaviour
     {
         if (other.transform.CompareTag("Platform"))
         {
-            other.gameObject.GetComponent<IPlatform>().Jumped();
-            if (onJump?.GetInvocationList().Length > 0)
+            var jumpStrength = other.gameObject.GetComponent<IPlatform>().Jumped();
+            if (onJump?.GetInvocationList().Length > 0 && jumpStrength > 0)
             {
-                onJump.Invoke();
+                onJump.Invoke(jumpStrength);
             }
         }
-    }
-    public IEnumerator Propeller()
-    {
-        mainCollider.enabled = false;
-        var index = 0;
-        
-        while (true)
-        {
-            //deathSpriteRenderer.sprite = currentTheme.deathSprites[index];
-            ++index;
-            if (index == currentTheme.deathSprites.Length - 1)
-            {
-                index = 0;
-            }
-
-            yield return new WaitForSeconds(0.05f);
-        }
-    }
-
-    public IEnumerator DieAnimation()
-    {
-        mainCollider.enabled = false;
-        var index = 0;
-        
-        while (true)
-        {
-            //deathSpriteRenderer.sprite = currentTheme.deathSprites[index];
-            ++index;
-            if (index == currentTheme.deathSprites.Length - 1)
-            {
-                index = 0;
-            }
-
-            yield return new WaitForSeconds(0.05f);
-        }
-        
     }
 }

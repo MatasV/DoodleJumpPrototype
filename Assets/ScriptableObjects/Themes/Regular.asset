@@ -12,8 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa5afa826b40d8439469a8ecebdd824, type: 3}
   m_Name: Regular
   m_EditorClassIdentifier: 
+  platformGameObjects:
+  - platform: {fileID: 6456708402990463678, guid: baad79b61f9974b40824a4bf96793c2a,
+      type: 3}
+    spawnPercentage: 80
+  - platform: {fileID: 3221558887337125574, guid: 2954ddb5d92bdc349981564283ccdb43,
+      type: 3}
+    spawnPercentage: 10
+  - platform: {fileID: 4672487716579693416, guid: 96ae4117b4a126447a6b3d56d78f1233,
+      type: 3}
+    spawnPercentage: 10
   doodleSnout: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d, type: 3}
-  regularPlatform: {fileID: 1834559386802486852, guid: 912e9a0dc65f4e34c893c2a447cbae9e,
+  regularPlatformSprite: {fileID: 1834559386802486852, guid: 59be912822a3a5940a1172118a5afbc5,
     type: 3}
   movingPlatform: {fileID: 2972604453649480616, guid: 912e9a0dc65f4e34c893c2a447cbae9e,
     type: 3}
@@ -21,7 +31,6 @@ MonoBehaviour:
   - {fileID: 5862005812850188299, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
   - {fileID: -2505174782047878525, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
   - {fileID: 709567329023910113, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
-  - {fileID: -8384149720036640882, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
   - {fileID: -6655732713954868112, guid: 912e9a0dc65f4e34c893c2a447cbae9e, type: 3}
   deathSprites:
   - {fileID: 21300000, guid: 0904f70d29cdc054f8c1d7b58ef12bee, type: 3}

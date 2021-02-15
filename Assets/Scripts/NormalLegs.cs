@@ -26,10 +26,10 @@ public class NormalLegs : MonoBehaviour, IPowerUp
                 throw new ArgumentOutOfRangeException(nameof(side), side, null);
         }
     }
-    protected virtual void Jump()
+    protected virtual void Jump(float jumpMult)
     {
         player.rb.velocity = Vector2.zero;
-        player.rb.AddForce(Vector2.up * jumpHeight, ForceMode2D.Impulse);
+        player.rb.AddForce(Vector2.up * jumpHeight * jumpMult, ForceMode2D.Impulse);
         StartCoroutine(nameof(Kneel));
     }
     

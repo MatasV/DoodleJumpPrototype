@@ -1,4 +1,4 @@
 ﻿public interface IPlatform
 {
-    void Jumped();
+    float Jumped();
 }

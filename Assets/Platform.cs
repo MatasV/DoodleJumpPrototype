@@ -6,14 +6,13 @@ using UnityEngine;
 public class Platform : MonoBehaviour, IPlatform
 {
     [SerializeField] protected ThemeDatabase themeDatabase;
-    
-    public void Jumped()
+    public virtual float Jumped()
     {
-        
+        return 1f;
     }
 
     protected virtual void OnEnable()
     {
-        GetComponent<SpriteRenderer>().sprite = themeDatabase.CurrentTheme.regularPlatform;
+        GetComponent<SpriteRenderer>().sprite = themeDatabase.CurrentTheme.regularPlatformSprite;
     }
 }
