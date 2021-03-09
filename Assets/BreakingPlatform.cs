@@ -15,6 +15,7 @@ public class BreakingPlatform : Platform
 
     protected override void OnEnable()
     {
+        gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
         rend = GetComponent<SpriteRenderer>();
         rend.sprite = themeDatabase.CurrentTheme.breakingPlatformSprite[0];
     }

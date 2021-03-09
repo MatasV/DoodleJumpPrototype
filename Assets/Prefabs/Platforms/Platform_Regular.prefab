@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 6456708402990463618}
   - component: {fileID: 6456708402990463619}
   - component: {fileID: 6456708402990463616}
-  - component: {fileID: 6456708402990463617}
-  - component: {fileID: 1934082340}
+  - component: {fileID: -1438146450930057815}
+  - component: {fileID: -4972172644846272263}
+  - component: {fileID: -7365034692712497151}
   m_Layer: 0
   m_Name: Platform_Regular
   m_TagString: Platform
@@ -102,10 +103,25 @@ PlatformEffector2D:
   m_UseOneWayGrouping: 0
   m_SurfaceArc: 180
   m_UseSideFriction: 0
-  m_UseSideBounce: 1
+  m_UseSideBounce: 0
   m_SideArc: 0
---- !u!70 &6456708402990463617
-CapsuleCollider2D:
+--- !u!114 &-1438146450930057815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6456708402990463678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8c17e6e097f4b34f9d3b9f74956af23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {fileID: 11400000, guid: 2a2f4f289c580d54e83c7b51da7f46b3, type: 2}
+  cameraToCheck: {fileID: 0}
+  action: 1
+--- !u!61 &-4972172644846272263
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -117,10 +133,20 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 1.08699716e-10, y: 0.0009118394}
-  m_Size: {x: 0.57000023, y: 0.13822706}
-  m_Direction: 1
---- !u!114 &1934082340
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.1899999, y: 0.34026718}
+    newSize: {x: 0.57, y: 0.15}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.1899999, y: 0.34026718}
+  m_EdgeRadius: 0
+--- !u!114 &-7365034692712497151
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -129,8 +155,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6456708402990463678}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 696d96de8b683fa4db162bca0e1691bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 12a306ee6c114ebbbd339f16d6f60f02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   themeDatabase: {fileID: 11400000, guid: c216b6da2e97973439e71540efca09be, type: 2}
-  spawnPercentage: 80

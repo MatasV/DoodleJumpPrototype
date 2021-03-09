@@ -12,6 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fa5afa826b40d8439469a8ecebdd824, type: 3}
   m_Name: Regular
   m_EditorClassIdentifier: 
+  powerUps:
+  - powerUp: {fileID: 7410084564064544621, guid: 80f8de8a2f2b39141a231a940453d24a,
+      type: 3}
+    spawnPercentage: 5
+  - powerUp: {fileID: 7649073525918845106, guid: f8d81cce6c8f32747b2ba2ad0f7d69c7,
+      type: 3}
+    spawnPercentage: 5
+  - powerUp: {fileID: 7095433970504825784, guid: cf55089b1c2663b49a6fa1fa6afe98a0,
+      type: 3}
+    spawnPercentage: 5
+  doodleJumpingSprite: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d,
+    type: 3}
+  doodleShootSprite: {fileID: -8490765672185573596, guid: eafce698076e84443b9b6e71d4f0ecf7,
+    type: 3}
+  doodleBulletGameObject: {fileID: 243162850315904601, guid: dcfa64d38355815488b0c0074699a4f3,
+    type: 3}
+  shooterSprite: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d, type: 3}
   platformGameObjects:
   - platform: {fileID: 6456708402990463678, guid: baad79b61f9974b40824a4bf96793c2a,
       type: 3}
@@ -22,6 +39,12 @@ MonoBehaviour:
   - platform: {fileID: 4672487716579693416, guid: 96ae4117b4a126447a6b3d56d78f1233,
       type: 3}
     spawnPercentage: 10
+  - platform: {fileID: 2130784352728515813, guid: 6b6e6e2429d309f4bb2dcad42ee41b50,
+      type: 3}
+    spawnPercentage: 5
+  - platform: {fileID: 438035582150731683, guid: 590ed41742ffa714caeafabde77658d3,
+      type: 3}
+    spawnPercentage: 5
   doodleSnout: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d, type: 3}
   regularPlatformSprite: {fileID: 1834559386802486852, guid: 59be912822a3a5940a1172118a5afbc5,
     type: 3}

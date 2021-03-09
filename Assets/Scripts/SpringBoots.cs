@@ -3,11 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpringBoots : NormalLegs
+public class SpringBoots : NormalLegs, ISpawnable
 {
     public SpriteRenderer leftBootRenderer;
     public SpriteRenderer rightBootRenderer;
-
+    
+    [SerializeField] private Vector3 spawnablePosition;
     [SerializeField] public ThemeDatabase themeDatabase;
     public float powerUpTime;
     private bool animDone;
@@ -66,11 +67,15 @@ public class SpringBoots : NormalLegs
     }
     private void OnDestroy()
     {
-        player.onSideChanged -= OnSideChanged;
+        if (player?.onSideChanged != null) player.onSideChanged -= OnSideChanged;
     }
     public override void OnPickUp(PlayerController p)
     {
         base.OnPickUp(p);
         Invoke(nameof(Reset), powerUpTime);
+    }
+    public Vector3 GetSpawnablePosition()
+    {
+        return spawnablePosition;
     }
 }

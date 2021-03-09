@@ -3,12 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Jetpack : Propeller
+public class Jetpack : MonoBehaviour, IPowerUp, ISpawnable
 {
     public Vector3 leftSidePosition;
     public Vector3 rightSidePosition;
-    public override void OnPickUp(PlayerController p)
+    public SpriteRenderer spriteRenderer;
+    private PlayerController player;
+    public float powerUpTime;
+    public ThemeDatabase themeDatabase;
+    public float flySpeed;
+    [SerializeField] private Vector3 spawnablePosition;
+    public void OnPickUp(PlayerController p)
     {
+        if (!p.CanEquipBack) return;
+        
         player = p;
         player.EquipBackSlot(transform);
         OnSideChanged(player.currentSide);
@@ -25,7 +33,7 @@ public class Jetpack : Propeller
         StartCoroutine(nameof(JetpackFlight));
     }
 
-    protected override void OnSideChanged(PlayerController.Side side)
+    private void OnSideChanged(PlayerController.Side side)
     {
         switch (side)
         {
@@ -44,10 +52,12 @@ public class Jetpack : Propeller
 
     private void OnDestroy()
     {
-        player.onSideChanged -= OnSideChanged;
+        if (player?.onSideChanged != null) player.onSideChanged -= OnSideChanged;
     }
     public IEnumerator JetpackFlight()
     {
+        player.DisableCollisions();
+        player.TurnOffGravity();
         var timer = 0f;
         var animationIndex = 0;
         while (timer < powerUpTime)
@@ -59,6 +69,12 @@ public class Jetpack : Propeller
             if(animationIndex > themeDatabase.CurrentTheme.propellerAnimation.Length - 1) animationIndex = 0;
             yield return null;
         }
+        player.EnableCollisions();
+        player.TurnOnGravity();
         Destroy(gameObject);
+    }
+    public Vector3 GetSpawnablePosition()
+    {
+        return spawnablePosition;
     }
 }

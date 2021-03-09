@@ -4,17 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Propeller : MonoBehaviour, IPowerUp
+public class Propeller : MonoBehaviour, IPowerUp, ISpawnable
 {
     public SpriteRenderer spriteRenderer;
-    protected PlayerController player;
+    private PlayerController player;
     public Vector3 requiredPosition;
     public float powerUpTime;
     public ThemeDatabase themeDatabase;
     public float flySpeed;
-    
-    public virtual void OnPickUp(PlayerController p)
+    [SerializeField] private Vector3 spawnablePosition;
+    public void OnPickUp(PlayerController p)
     {
+        if (!p.CanEquipHead) return;
+        
         player = p;
         player.EquipHeadSlot(transform);
         transform.localPosition = requiredPosition;
@@ -33,11 +35,13 @@ public class Propeller : MonoBehaviour, IPowerUp
 
     private void OnDestroy()
     {
-        player.onSideChanged -= OnSideChanged;
+        if (player?.onSideChanged != null) player.onSideChanged -= OnSideChanged;
     }
 
     private IEnumerator PropellerFlight()
     {
+        player.DisableCollisions();
+        player.TurnOffGravity();
         var timer = 0f;
         var animationIndex = 0;
         while (timer < powerUpTime)
@@ -49,9 +53,11 @@ public class Propeller : MonoBehaviour, IPowerUp
             if(animationIndex > themeDatabase.CurrentTheme.propellerAnimation.Length - 1) animationIndex = 0;
             yield return null;
         }
+        player.EnableCollisions();
+        player.TurnOnGravity();
         Destroy(gameObject);
     }
-    protected virtual void OnSideChanged(PlayerController.Side side)
+    protected void OnSideChanged(PlayerController.Side side)
     {
         switch (side)
         {
@@ -65,5 +71,8 @@ public class Propeller : MonoBehaviour, IPowerUp
                 throw new ArgumentOutOfRangeException(nameof(side), side, null);
         }
     }
-    
+    public virtual Vector3 GetSpawnablePosition()
+    {
+        return spawnablePosition;
+    }
 }

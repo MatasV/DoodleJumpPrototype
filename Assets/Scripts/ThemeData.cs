@@ -7,13 +7,25 @@ using UnityEngine;
 public class ThemeData : ScriptableObject
 {
     [Serializable]
-    public struct PlatformGameObjects
+    public struct PlatformGameObject
     {
         public GameObject platform;
         public float spawnPercentage;
     }
 
-    public PlatformGameObjects[] platformGameObjects;
+    [Serializable]
+    public struct PowerupGameObject
+    {
+        public GameObject powerUp;
+        public float spawnPercentage;
+    }
+
+    public PowerupGameObject[] powerUps;
+    public Sprite doodleJumpingSprite;
+    public Sprite doodleShootSprite;
+    public GameObject doodleBulletGameObject;
+    public Sprite shooterSprite;
+    public PlatformGameObject[] platformGameObjects;
     public Sprite doodleSnout;
     public Sprite regularPlatformSprite;
     public Sprite movingPlatform;
@@ -26,4 +38,5 @@ public class ThemeData : ScriptableObject
     public GameObject legsGameObject;
     public Sprite[] propellerAnimation;
     public Sprite[] jetpackAnimation;
+    
 }
