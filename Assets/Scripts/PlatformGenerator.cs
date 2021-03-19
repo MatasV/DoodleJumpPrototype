@@ -19,6 +19,7 @@ public class PlatformGenerator : MonoBehaviour
     private ThemeData.PowerupGameObject[] powerUps;
     private Dictionary<string, Pool> pools = new Dictionary<string, Pool>();
     private Camera mainCamera;
+    private bool previousEnemy = false;
     private void OnEnable()
     {
         mainCamera = Camera.main;
@@ -56,8 +57,7 @@ public class PlatformGenerator : MonoBehaviour
         var percentage = platforms[0].spawnPercentage;
 
         var poolParent = new GameObject {name = "Pools"}.transform;
-
-
+        
         
         for (int i = 0; i < platforms.Length; i++)
         {
@@ -97,7 +97,6 @@ public class PlatformGenerator : MonoBehaviour
         
         var powerupPercentage = Random.Range(0,
             powerUps[powerUps.Length - 1].spawnPercentage);
-
         
         var spawnX = Random.Range(topLeft.x, topRight.x);
 
@@ -105,49 +104,82 @@ public class PlatformGenerator : MonoBehaviour
         {
             if (percentage < platforms[j].spawnPercentage)
             {
-                if (pools.TryGetValue($"{platforms[j].platform.name} Pool", out var poolToUse))
+                var isEnemy = platforms[j].platform.GetComponent<Enemy>() != null;
+                
+                switch (isEnemy)
                 {
-                    var spawnedObject = poolToUse.GetObject(platforms[j].platform);
-                    spawnedObject.transform.localPosition = new Vector3(spawnX, lastSpawnY + spawningYOffset, 0);
-                    spawnedObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
-                    spawnedObject.GetComponent<OutOfViewDeletable>()?.Init(poolToUse, mainCamera);
-
-                    foreach (var comp in spawnedObject.GetComponents(typeof(Component)))
+                    case true when previousEnemy:
                     {
-                        if (comp.GetType().GetInterface(nameof(ICanSpawnPowerUp)) != null)
-                        {
-                            Debug.Log(comp.GetType() + "does implement interface");
-
-                            for (int k = 0; k < powerUps.Length; k++)
-                            {
-                                if (powerupPercentage < powerUps[k].spawnPercentage)
-                                {
-                                    if (powerUps[k].powerUp != null)
-                                    {
-                                        SpawnPowerUpOnPlatform(powerUps[k].powerUp, spawnedObject);
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                        previousEnemy = false;
+                        var spawnedNonEnemy = SpawnTile(platforms[0], spawnX);
+                        SpawnPowerUp(powerupPercentage, spawnedNonEnemy);
+                        return;
                     }
-
-                    Debug.Log(spawnedObject.name + "does not implement interface");
-
-                    break;
+                    case true when !previousEnemy:
+                    {
+                        previousEnemy = true;
+                        var spawnedObj = SpawnTile(platforms[j], spawnX);
+                        SpawnPowerUp(powerupPercentage, spawnedObj);
+                        break;
+                    }
+                    default:
+                    {
+                        var spawnedObj = SpawnTile(platforms[j], spawnX);
+                        SpawnPowerUp(powerupPercentage, spawnedObj);
+                        break;
+                    }
                 }
-                else
-                {
-                    Debug.LogWarning(
-                        $"Could not spawn a requested spawnable by the name of {platforms[j].platform.name}");
-                }
-
                 return;
             }
         }
-
     }
 
+    private void SpawnPowerUp(float powerupPercentage, GameObject spawnedObj)
+    {
+        ICanSpawnPowerUp powerup = null;
+
+        foreach (var comp in spawnedObj.GetComponents(typeof(Component)))
+        {
+            if (comp.GetType().GetInterface(nameof(ICanSpawnPowerUp)) != null)
+            {
+                powerup = (ICanSpawnPowerUp) comp;
+            }
+        }
+
+        if (powerup == null) return;
+        
+        for (int k = 0; k < powerUps.Length; k++)
+        {
+            if (powerupPercentage < powerUps[k].spawnPercentage)
+            {
+                if (powerUps[k].powerUp == null) return;
+                SpawnPowerUpOnPlatform(powerUps[k].powerUp, spawnedObj);
+                return;
+            }
+        }
+    }
+
+    private GameObject SpawnTile(ThemeData.PlatformGameObject platform, float spawnX)
+    {
+        if (pools.TryGetValue($"{platform.platform.name} Pool", out var poolToUse))
+        {
+            var spawnedObject = poolToUse.GetObject(platform.platform);
+            spawnedObject.transform.localPosition = new Vector3(spawnX, lastSpawnY + spawningYOffset, 0);
+            spawnedObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            spawnedObject.GetComponent<OutOfViewDeletable>()?.Init(poolToUse, mainCamera);
+            
+            Debug.Log(spawnedObject.name + "does not implement interface");
+
+            return spawnedObject;
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"Could not spawn a requested spawnable by the name of {platform.platform.name}");
+        }
+
+        return null;
+    }
     private void SpawnPowerUpOnPlatform(GameObject powerUp, GameObject spawnedObject)
     {
         var platformBounds = GetMaxBounds(spawnedObject);

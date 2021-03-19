@@ -52,10 +52,10 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         playerPosition.Value = transform.position;
+        score.Value = 0;
     }
     private void Start()
     {
-        score.Value = 0;
         col = GetComponent<Collider2D>();
         canMove = true;
         mainCam = Camera.main;
@@ -119,13 +119,13 @@ public class PlayerController : MonoBehaviour
         if (!canMove) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            rb.position += Vector2.left * sideWaysSpeed;
+            transform.position += Vector3.left * sideWaysSpeed;
             mainPlayerRenderer.flipX = false;
             currentSide = Side.Left;
             onSideChanged.Invoke(currentSide);
         } else if (Input.GetKey(KeyCode.RightArrow))
         {
-            rb.position += Vector2.right * sideWaysSpeed;
+            transform.position += Vector3.right * sideWaysSpeed;
             mainPlayerRenderer.flipX = true;
             currentSide = Side.Right;
             onSideChanged.Invoke(currentSide);

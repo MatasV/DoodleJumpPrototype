@@ -9,12 +9,7 @@ public class ScoreDisplay : MonoBehaviour
     [SerializeField] private string preFix;
     [SerializeField] private TMP_Text scoreDisplay;
     [SerializeField] private SharedInt score;
-
-    private void OnEnable()
-    {
-        UpdateText();
-    }
-
+    
     private void UpdateText()
     {
         scoreDisplay.text = preFix+score.Value.ToString();
@@ -23,6 +18,7 @@ public class ScoreDisplay : MonoBehaviour
     private void Start()
     {
         score.valueChangeEvent.AddListener(UpdateText);
+        UpdateText();
     }
 
     private void OnDestroy()
