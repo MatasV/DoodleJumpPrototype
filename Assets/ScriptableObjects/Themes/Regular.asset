@@ -23,7 +23,7 @@ MonoBehaviour:
       type: 3}
     spawnPercentage: 3
   - powerUp: {fileID: 0}
-    spawnPercentage: 85
+    spawnPercentage: 1
   doodleJumpingSprite: {fileID: 21300000, guid: c9b9576f5fa7abe46a0329c0a0cbab1d,
     type: 3}
   doodleShootSprite: {fileID: -8490765672185573596, guid: eafce698076e84443b9b6e71d4f0ecf7,

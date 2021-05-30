@@ -192,7 +192,6 @@ public class PlatformGenerator : MonoBehaviour
         var spawnPosition = new Vector3(Random.Range(leftX, rightX), top + powerUpBounds.extents.y, 0);
 
         Instantiate(powerUp, spawnPosition, Quaternion.identity, spawnedObject.transform);
-
     }
 
     private static Bounds GetMaxBounds(GameObject g) {
