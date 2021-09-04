@@ -41,6 +41,8 @@ public class PlayerController : MonoBehaviour
     public OnDead onDead;
     
     public GameObject legsGameObject;
+
+    [SerializeField] private GameObject gameOverScreen;
     
     [Header("Shooting")]
     [SerializeField] private Transform shootingPosition;
@@ -49,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public bool CanEquipHead => headSlot.childCount == 0;
     public bool CanEquipBack => backSlot.childCount == 0;
     public bool CanEquipLegs => bootSlot.childCount == 1 && bootSlot.GetChild(0).name == "Legs";
+
     private void Awake()
     {
         playerPosition.Value = transform.position;
@@ -81,6 +84,7 @@ public class PlayerController : MonoBehaviour
     {
         DisableCollisions();
         onDead?.Invoke();
+        gameOverScreen.GetComponent<GameOverScreen>().ShowGameOverScreen();
         Debug.Log("Game Over");
     }
     public void LockControls()
@@ -131,27 +135,35 @@ public class PlayerController : MonoBehaviour
             onSideChanged.Invoke(currentSide);
         }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            var mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
-            StartCoroutine(Shoot(mousePos));
-        }
-        
-        if (transform.position.x < mainCam.ScreenToWorldPoint(Vector2.zero).x)
-        {
-            Vector2 targetPos = mainCam.ScreenToWorldPoint(new Vector2(mainCam.pixelWidth, mainCam.WorldToScreenPoint(transform.position).y));
-            transform.position = targetPos;
-        } else if (transform.position.x > mainCam.ScreenToWorldPoint(new Vector2(mainCam.pixelWidth, 0)).x)
-        {
-            Vector2 targetPos = mainCam.ScreenToWorldPoint(new Vector2(0, mainCam.WorldToScreenPoint(transform.position).y));
-            transform.position = targetPos;
-        }
+        #if UNITY_ANDROID
 
-        if (transform.position.y < mainCam.ScreenToWorldPoint(Vector2.zero).y)
-        {
-            LockControls();
-            GameOver();
-        }
+        float xGyroInput = Input.acceleration.x;
+        Vector3 tiltPos = new Vector3(xGyroInput, 0f, 0f);
+        transform.position += tiltPos * sideWaysSpeed;
+
+        #endif
+
+         if (Input.GetMouseButtonDown(0))
+         {
+             var mousePos = mainCam.ScreenToWorldPoint(Input.mousePosition);
+             StartCoroutine(Shoot(mousePos));
+         }
+
+         if (transform.position.x < mainCam.ScreenToWorldPoint(Vector2.zero).x)
+         {
+             Vector2 targetPos = mainCam.ScreenToWorldPoint(new Vector2(mainCam.pixelWidth, mainCam.WorldToScreenPoint(transform.position).y));
+             transform.position = targetPos;
+         } else if (transform.position.x > mainCam.ScreenToWorldPoint(new Vector2(mainCam.pixelWidth, 0)).x)
+         {
+             Vector2 targetPos = mainCam.ScreenToWorldPoint(new Vector2(0, mainCam.WorldToScreenPoint(transform.position).y));
+             transform.position = targetPos;
+         }
+
+         if (transform.position.y < mainCam.ScreenToWorldPoint(Vector2.zero).y)
+         {
+             LockControls();
+             GameOver();
+         }
     }
 
     public bool CanDie()
