@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -14,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float sideWaysSpeed;
 
     public bool canMove = true;
-    
+
     public Collider2D mainCollider;
     private Camera mainCam;
 
@@ -27,10 +24,10 @@ public class PlayerController : MonoBehaviour
     public Transform headSlot;
     public Transform backSlot;
     public Transform bootSlot;
-    
-    public enum Side {Left, Right};
+
+    public enum Side { Left, Right };
     public Side currentSide;
-    
+
     public delegate void OnJump(float jumpMult);
     public OnJump onJump;
 
@@ -39,14 +36,20 @@ public class PlayerController : MonoBehaviour
 
     public delegate void OnDead();
     public OnDead onDead;
-    
+
     public GameObject legsGameObject;
 
     [SerializeField] private GameObject gameOverScreen;
-    
+
     [Header("Shooting")]
     [SerializeField] private Transform shootingPosition;
     [SerializeField] private SpriteRenderer shooterSprite;
+
+    [Header("Audio:")]
+    [SerializeField] private float volume = 0.5f;
+    [SerializeField] private AudioClip jumpSound;
+    private AudioSource audioSource;
+
     
     public bool CanEquipHead => headSlot.childCount == 0;
     public bool CanEquipBack => backSlot.childCount == 0;
@@ -59,6 +62,7 @@ public class PlayerController : MonoBehaviour
     }
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         col = GetComponent<Collider2D>();
         canMove = true;
         mainCam = Camera.main;
@@ -251,6 +255,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.transform.CompareTag("Platform"))
         {
+            audioSource.PlayOneShot(jumpSound, volume);
             var jumpStrength = other.gameObject.GetComponent<IPlatform>().Jumped();
             if (onJump?.GetInvocationList().Length > 0 && jumpStrength > 0)
             {
